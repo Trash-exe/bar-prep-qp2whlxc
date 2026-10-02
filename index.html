@@ -69,6 +69,8 @@ table{width:100%;border-collapse:collapse;font-size:.92em}th,td{text-align:left;
 .chip{display:inline-flex;align-items:center;gap:6px;font-size:.8em;font-weight:600;padding:2px 10px 2px 8px;border-radius:999px;background:color-mix(in srgb,var(--c,var(--muted)) 14%,var(--panel));color:var(--text);white-space:nowrap;vertical-align:middle}
 .chip i{width:9px;height:9px;border-radius:50%;background:var(--c,var(--muted));display:inline-block}
 .banner{background:var(--accent-soft);border-radius:14px;padding:12px 14px;font-size:.93em}
+.love-note{display:block;margin:0 0 14px;padding:10px 16px;border-radius:14px;background:color-mix(in srgb,var(--s-torts) 9%,var(--panel));border:1px solid color-mix(in srgb,var(--s-torts) 26%,var(--border));color:var(--text);font-size:.95em;line-height:1.45}
+.love-note .ln-msg{font-weight:600}.love-note .ln-sig{color:var(--muted);font-size:.92em;margin-left:8px;white-space:nowrap}
 .bar{height:8px;border-radius:999px;background:var(--panel2);overflow:hidden;position:relative}.bar i{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .5s ease}
 .bar.lg{height:12px}.bar.good i{background:var(--good)}.bar.warn i{background:var(--warn)}.bar.bad i{background:var(--bad)}
 .goalbar{overflow:visible}.goalbar b{position:absolute;top:-4px;bottom:-4px;width:3px;margin-left:-1px;background:var(--text);border-radius:2px;opacity:.7}.goalbar u{position:absolute;top:0;bottom:0;width:2px;background:var(--muted);opacity:.6}
@@ -209,7 +211,7 @@ main section:not(.hidden)>*{animation:fadeUp .25s ease both}
 <button id="focusExit" class="btn ghost hidden" type="button" aria-label="Exit focus mode">✕ Exit focus</button>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-const BUILD='05e0054083';
+const BUILD='ba05e68ccf';
 // Flashcards: black-letter-law summaries written for this app (majority / MBE rules unless noted). Not NCBE content.
 // Each card is [front, back, id]. The id is FIXED (saved progress is keyed by it): never change or reuse it; new cards get new ids (e.g., torts-30).
 const CARDS = {};
@@ -1455,6 +1457,7 @@ RENDER.dash=function(){
  else{todayHtml=chunks.map((c,i)=>{const dn=chunkDone(t,c);return `<label class="task ${dn?'done':''}"><input type="checkbox" data-ck="${esc(c.id)}" ${dn?'checked':''}><div class="grow"><div class="tl">${c.subj&&SUBJ[c.subj]?chip(c.subj)+' ':''}${esc(c.label)}</div><div class="tiny muted">${c.mins} min${c.tab?` · <a href="#" data-chunk="${i}">start</a>`:''}</div></div></label>`;}).join('');}
  const pDiff=Math.round(pc.diff/60);
  $('#t-dash').innerHTML=`
+ <div class="love-note" id="loveNote" role="note"><span class="ln-msg">I love you so much and you got this <span style="white-space:nowrap">baby! <span aria-hidden="true">❤️</span></span></span><span class="ln-sig">— Neal</span></div>
  <div class="card hero">
   <div class="row"><div><div class="eyebrow">${fmtDate(t)}${day&&day.title?' · '+esc(day.title):''}</div><h1 class="h1">${next?'Ready when you are.':(chunks.length?'Today’s plan is done. Nice work.':'Nothing scheduled today.')}</h1></div><span class="spacer"></span>
    <div class="streak" title="Days in a row with any study activity">🔥 <b>${sk.n}</b> day${sk.n===1?'':'s'}${sk.today||!sk.n?'':' · keep it going today'}</div></div>
